@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon --exec npx babel-node server.js",
     "build": "babel ./src --out-dir ./build",
-    "start": "node server.js"
+    "start": "node ./build/server.js"
   },
   "keywords": [],
   "author": "",
