@@ -13,12 +13,7 @@ import cookieParser  from 'cookie-parser'
 import path from 'path';
 import history from 'connect-history-api-fallback'
 import mongoose from './db/database';
-import config from '../config/config';
 
-const mongo = config.mongo
-
-const dbPath = `mongodb+srv://${mongo.username}:${mongo.password}@${mongo.hostname}/${mongo.db}?retryWrites=true&w=majority`;
-// mongoose.set('debug', true);
 // import * as dotenv from 'dotenv'
 // dotenv.config()
 
@@ -80,20 +75,6 @@ app.get('*', (req,res) => {
   res.sendFile(path.join(__dirname, './dist/index.html'));
 })
 
-
-mongoose.connect(dbPath, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  app.listen(process.env.PORT || 8080, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('Server is listening on port 8080');
-});
-})
-const db = mongoose.connection
-db.on("error", () => {
-  Logger.error("Error occurred from Mongo at " + mongo.db + '@' + mongo.hostname);
-});
-db.on("open", () => {
-  Logger.log("Successfully connected to Mongo at " + mongo.db + '@' + mongo.hostname);
 });
