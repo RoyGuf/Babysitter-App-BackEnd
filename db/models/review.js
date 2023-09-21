@@ -1,4 +1,4 @@
-import mongoose from "../database";
+import mongoose from "../database.js";
 
 const reviewSchema = new mongoose.Schema({
   // review_id: { type: mongoose.SchemaTypes.ObjectId, required: true },

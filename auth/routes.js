@@ -1,12 +1,17 @@
-const path = require('path')
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
+import path from 'path';
+import dotenv from 'dotenv'
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+
+const dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(dirname, '../.env') })
 import { Router } from 'express';
-import CustomerService from '../customers/service';
-import BabysitterService from '../babysitters/service';
-import ReviewService from '../reviews/service';
-import CloudinaryService from '../cloud/cloudinary/service';
-import logger from '../logger/service';
-import config from '../config/config';
+import CustomerService from '../customers/service.js';
+import BabysitterService from '../babysitters/service.js';
+import ReviewService from '../reviews/service.js';
+import CloudinaryService from '../cloud/cloudinary/service.js';
+import logger from '../logger/service.js';
+import config from '../config/config.js';
 import bcrypt from 'bcryptjs' 
 import jwt  from 'jsonwebtoken'
 

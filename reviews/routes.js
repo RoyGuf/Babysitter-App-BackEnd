@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import ReviewService from './service';
-import BabysitterService from '../babysitters/service';
-import CustomerService from '../customers/service';
-import logger from '../logger/service';
-import config from '../config/config';
+import ReviewService from './service.js';
+import BabysitterService from '../babysitters/service.js';
+import CustomerService from '../customers/service.js';
+import logger from '../logger/service.js';
+import config from '../config/config.js';
 
 const router = Router();
 

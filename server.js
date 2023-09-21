@@ -1,18 +1,23 @@
-require('dotenv').config();
+import path from 'path';
+import dotenv from 'dotenv'
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+
+const dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(dirname, '../.env') })
 import express from 'express';
 import { Router } from 'express';
 import bodyParser from 'body-parser';
-import babysitterRouter from './babysitters/routes'
-import customerRouter from './customers/routes'
-import reviewRouter from './reviews/routes'
-import authRouter from './auth/routes'
-import cloudinaryRouter from './cloud/cloudinary/routes'
+import babysitterRouter from './babysitters/routes.js'
+import customerRouter from './customers/routes.js'
+import reviewRouter from './reviews/routes.js'
+import authRouter from './auth/routes.js'
+import cloudinaryRouter from './cloud/cloudinary/routes.js'
 import crypto from 'crypto'
 import cors from 'cors'
 import cookieParser  from 'cookie-parser'
-import path from 'path';
 import history from 'connect-history-api-fallback'
-import mongoose from './db/database';
+import mongoose from './db/database.js';
 
 // import * as dotenv from 'dotenv'
 // dotenv.config()
@@ -25,7 +30,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cookieParser())
-app.use(express.static(path.resolve(__dirname, './dist'), {maxAge: '1y', etag: false}))
+app.use(express.static(path.resolve(dirname, './dist'), {maxAge: '1y', etag: false}))
 app.use(history());
 
 const corsConfig = {
@@ -72,7 +77,7 @@ app.use((err, req, res, next) => {
 });
 
 app.get('*', (req,res) => {
-  res.sendFile(path.join(__dirname, './dist/index.html'));
+  res.sendFile(path.join(dirname, './dist/index.html'));
 })
 
 app.listen(process.env.PORT || 8080, () => {

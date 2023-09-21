@@ -1,5 +1,5 @@
-import Customer from '../db/models/customer'
-import loggerService from '../logger/service';
+import Customer from '../db/models/customer.js'
+import loggerService from '../logger/service.js';
 
 function getAllCustomers(orgId, query) {
     return Customer.find({});

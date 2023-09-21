@@ -1,6 +1,6 @@
-import Babysitter from '../db/models/babysitter'
-import Customer from '../db/models/customer'
-import loggerService from '../logger/service';
+import Babysitter from '../db/models/babysitter.js'
+import Customer from '../db/models/customer.js'
+import loggerService from '../logger/service.js';
 
 function getAllBabysitters(orgId, query) {
     return Babysitter.find({});

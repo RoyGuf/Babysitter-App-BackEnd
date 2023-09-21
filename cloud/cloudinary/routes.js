@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import CloudinaryService from './service';
-import logger from '../../logger/service';
-import config from '../../config/config';
+import CloudinaryService from './service.js';
+import logger from '../../logger/service.js';
+import config from '../../config/config.js';
 
 const router = Router();
 

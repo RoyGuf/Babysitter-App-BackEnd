@@ -1,4 +1,4 @@
-import cloudinary from '../../utils/cloudinaryConfig'
+import cloudinary from '../../utils/cloudinaryConfig.js'
 
 function uploadImage(data,name) {
     return cloudinary.uploader.upload(data, {

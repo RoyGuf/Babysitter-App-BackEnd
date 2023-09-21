@@ -1,4 +1,4 @@
-import mongoose from "../database";
+import mongoose from "../database.js";
 
 
 const babysitterSchema = new mongoose.Schema({

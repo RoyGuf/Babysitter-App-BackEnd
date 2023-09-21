@@ -1,5 +1,5 @@
-import Review from '../db/models/review'
-import loggerService from '../logger/service';
+import Review from '../db/models/review.js'
+import loggerService from '../logger/service.js';
 
 function getAllReviews(orgId, query) {
     return Review.find({});

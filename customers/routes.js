@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import CustomerService from './service';
-import logger from '../logger/service';
-import config from '../config/config';
+import CustomerService from './service.js';
+import logger from '../logger/service.js';
+import config from '../config/config.js';
 import bcrypt from 'bcryptjs' 
 import jwt  from 'jsonwebtoken'
 

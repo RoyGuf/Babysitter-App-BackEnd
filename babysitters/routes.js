@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import BabysitterService from './service';
-import CloudinaryService from '../cloud/cloudinary/service';
-import logger from '../logger/service';
-import config from '../config/config';
+import BabysitterService from './service.js';
+import CloudinaryService from '../cloud/cloudinary/service.js';
+import logger from '../logger/service.js';
+import config from '../config/config.js';
 
 const router = Router();
 

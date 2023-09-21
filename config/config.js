@@ -1,7 +1,12 @@
-const path = require('path')
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
-import staging from './staging.config';
-import production from './production.config';
+import path from 'path';
+import dotenv from 'dotenv'
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+
+const dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(dirname, '../.env') })
+import staging from './staging.config.js';
+import production from './production.config.js';
 
 const envConfig = process.env.NODE_ENV === "production" ? production : staging;
 
