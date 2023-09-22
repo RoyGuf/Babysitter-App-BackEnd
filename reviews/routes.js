@@ -57,6 +57,7 @@ router.post('/', function(req, res, next) {
             .then(customer => {
                 return ReviewService.updateReview(currentReview._id, {customer_id: customer._id})
             })
+            .catch(next);
         }
     })
     .then(customer => {

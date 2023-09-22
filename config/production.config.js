@@ -2,9 +2,8 @@ import path from 'path';
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
-
 const dirname = path.dirname(__filename);
-dotenv.config({ path: path.resolve(dirname, '../.env') })
+dotenv.config({ path: path.resolve(dirname, '../.env') });
 // console.log(process.env.STAGING_MONGO_PASSWORD)
 
 const production = {

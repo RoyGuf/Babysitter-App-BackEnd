@@ -2,9 +2,9 @@ import path from 'path';
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
-
 const dirname = path.dirname(__filename);
-dotenv.config({ path: path.resolve(dirname, '../.env') })
+dotenv.config({ path: path.resolve(dirname, '../.env') });
+
 import staging from './staging.config.js';
 import production from './production.config.js';
 

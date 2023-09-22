@@ -2,9 +2,9 @@ import path from 'path';
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
-
 const dirname = path.dirname(__filename);
-dotenv.config({ path: path.resolve(dirname, '../.env') })
+dotenv.config({ path: path.resolve(dirname, '../.env') });
+
 import express from 'express';
 import { Router } from 'express';
 import bodyParser from 'body-parser';
