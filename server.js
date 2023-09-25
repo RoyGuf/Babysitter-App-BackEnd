@@ -31,15 +31,17 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser())
 app.use(express.static(path.resolve(dirname, './dist'), {maxAge: '1y', etag: false}))
-app.use(history());
 
 const corsConfig = {
   origin: true,
   credentials: true,
 };
-if (process.env.NODE_ENV !== 'production') {
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') {
   app.use(cors(corsConfig));
   app.options('*', cors(corsConfig));
+}else{
+  app.use(history());
 }
 
 app.use('/health_check', (req, res, next) => {
@@ -76,9 +78,11 @@ app.use((err, req, res, next) => {
   console.error(errorId, err);
 });
 
-app.get('*', (req,res) => {
-  res.sendFile(path.join(dirname, './dist/index.html'));
-})
+if(process.env.NODE_ENV === 'production'){
+  app.get('*', (req,res) => {
+    res.sendFile(path.join(dirname, './dist/index.html'));
+  })
+}
 
 app.listen(process.env.PORT || 8080, () => {
     console.log('Server is listening on port 8080');

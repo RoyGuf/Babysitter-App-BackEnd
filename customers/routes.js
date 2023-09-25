@@ -2,8 +2,6 @@ import { Router } from 'express';
 import CustomerService from './service.js';
 import logger from '../logger/service.js';
 import config from '../config/config.js';
-import bcrypt from 'bcryptjs' 
-import jwt  from 'jsonwebtoken'
 
 const router = Router();
 
@@ -55,10 +53,3 @@ router.post('/addReview/:id', function (req, res, next) {
 
 
 export default router;
-
-// router.get('/ages/:ages', function(req, res, next) {
-//     logger.log(`Get Customer by age group: ${req.params.ages}`);
-//     return CustomerService.getBabysitterByAges(req.params.ages)
-//     .then(babysitter => res.send(babysitter))
-//     .catch(next);
-// });

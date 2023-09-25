@@ -17,15 +17,15 @@ import jwt  from 'jsonwebtoken'
 
 const router = Router();
 
-
+// register new bebysitter
 router.post('/register', async (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
     logger.log(`Register new Babysitter`);
     const salt           = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(req.body.password, salt)
     req.body.password    = hashedPassword;
     if(req.body.imgUrl != ''){
-        let imgObject = {public_id:'', url:''};
+        let imgObject      = {public_id:'', url:''};
         let babysitterName = `${req.body.firstName} ${req.body.lastName} ${req.body.phone}`
         return CloudinaryService.uploadImage(req.body.imgUrl, babysitterName)
         .then(result => {
@@ -47,12 +47,8 @@ router.post('/register', async (req, res, next) => {
         })
         .catch(next); 
     }
-    // const result                = await BabysitterService.createBabysitter(user)
-    // const { password, ...data } = await result.toJSON()
-
-    // res.send(data)
 })
-
+// login a babysitter
 router.post('/login', async (req, res) => {
     logger.log(`Login Babysitter`);
     const user = await BabysitterService.getBabysitterByEmail(req.body.email)
@@ -67,7 +63,9 @@ router.post('/login', async (req, res) => {
         })
     }
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET)
+    let secureReq = process.env.NODE_ENV === 'production' ? true : false
     res.cookie('jwt', token, {
+        secure: secureReq,
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000 // 1 day
     })
@@ -75,7 +73,7 @@ router.post('/login', async (req, res) => {
         message: 'success'
     })
 })
-
+// verify JWT token
 router.get('/user', async (req, res) => {
     logger.log(`Get Babysitter auth`);
     try {
@@ -95,10 +93,11 @@ router.get('/user', async (req, res) => {
         })
     }
 })
-
+// logout a babysitter
 router.post('/logout', (req, res) => {
     logger.log(`Logout Babysitter`);
-    res.cookie('jwt', '', { maxAge: 0 })
+    let secureReq = process.env.NODE_ENV === 'production' ? true : false
+    res.cookie('jwt', '', { secure: secureReq, maxAge: 0 })
     res.send({
         message: 'success'
     })

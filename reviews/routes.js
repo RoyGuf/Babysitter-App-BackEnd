@@ -37,7 +37,7 @@ router.post('/', function(req, res, next) {
     return CustomerService.getCustomerByEmail(req.body.customer_email)
     .then(customer => {
         let review;
-        if(!customer) {
+        if(!customer) { // check if customer exist by mail
             createCustomer = true;
             review = Object.assign({}, req.body);
         }
@@ -47,7 +47,7 @@ router.post('/', function(req, res, next) {
     .then(review => {
         currentReview = review;
         if(!createCustomer) return CustomerService.addReviewToCustomer(currentReview.customer_id, currentReview._id);
-        else {
+        else { // create new customer
             const customerObj = {
                 email: currentReview.customer_email,
                 name: currentReview.customer_name,
@@ -66,8 +66,6 @@ router.post('/', function(req, res, next) {
     .then(babysitter => res.send(currentReview))
     .catch(next);
 });
-// if(review.customer_email)
-// if(review.customer_id) return CustomerService.addReviewToCustomer(review.customer_id, review._id)
 
 
 // update Review

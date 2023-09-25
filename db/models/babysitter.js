@@ -2,7 +2,6 @@ import mongoose from "../database.js";
 
 
 const babysitterSchema = new mongoose.Schema({
-    // babysitter_id: { type: mongoose.SchemaTypes.ObjectId, required: true },
     firstName: { type: String, required: [true, 'Name is required'] },
     lastName: { type: String, required: false },
     password: { type: String, required: [true, 'Password is required'] },

@@ -8,9 +8,6 @@ function getAllBabysitters(orgId, query) {
 function getAllBabysittersWithReviews(orgId, query) {
     return Babysitter.find({}).populate('reviews');
 }
-// function getAllBabysitterById(orgId, query) {
-//     return Babysitter.find({orgId: orgId, ...query});
-// }
 function getBabysitterById(babysitterId) {
     if(!babysitterId) throw new Error('babysitterId is a mandatory field');
     return Babysitter.findOne({_id: babysitterId}).populate({

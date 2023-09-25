@@ -1,10 +1,3 @@
-// import path from 'path';
-// import dotenv from 'dotenv'
-// import { fileURLToPath } from 'url';
-// const __filename = fileURLToPath(import.meta.url);
-
-// const dirname = path.dirname(__filename);
-// dotenv.config({ path: path.resolve(dirname, '../.env') })
 import mongoose from "mongoose";
 import Logger from '../logger/service.js';
 import config from '../config/config.js';
