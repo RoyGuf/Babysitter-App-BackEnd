@@ -29,7 +29,7 @@ router.get('/:id', function(req, res, next) {
 });
 // get Babysitters by age groups
 router.get('/ages/:ages', function(req, res, next) {
-    console.log(req.headers.authorization);
+    // console.log(req.headers.authorization);
     logger.log(`Get Babysitter by age group: ${req.params.ages}`);
     return BabysitterService.getBabysittersByAges(req.params.ages)
     .then(babysitter => res.send(babysitter))
