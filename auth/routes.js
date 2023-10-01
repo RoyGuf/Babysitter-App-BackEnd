@@ -69,9 +69,8 @@ router.post('/login', async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000 // 1 day
     })
-    res.send({
-        message: 'success'
-    })
+    const { password, ...data } =  user.toJSON()
+    res.send(data)
 })
 // verify JWT token
 router.get('/user', async (req, res) => {

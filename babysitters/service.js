@@ -31,6 +31,14 @@ function updateBabysitter(babysitterId, babysitterObject) {
     if(!babysitterId) throw new Error('babysitterId is a mandatory field');
     return Babysitter.findOneAndUpdate({_id: babysitterId}, babysitterObject, {new: true}).populate('reviews');
 }
+function addMediaToBabysitter(babysitterId, media) {
+    if(!babysitterId) throw new Error('babysitterId is a mandatory field');
+    return Babysitter.findOneAndUpdate({_id: babysitterId}, { "$push": { "media": media } }, {new: true}).populate('reviews');
+}
+function removeMediaToBabysitter(babysitterId, mediaId) {
+    if(!babysitterId) throw new Error('babysitterId is a mandatory field');
+    return Babysitter.findOneAndUpdate({_id: babysitterId}, { "$pull": { "media": { "_id": mediaId } }}, {new: true}).populate('reviews');
+}
 function addReviewToBabysitter(babysitterId, reviewId) {
     if(!babysitterId) throw new Error('babysitterId is a mandatory field');
     return Babysitter.findOneAndUpdate({_id: babysitterId}, { "$push": { "reviews": reviewId } }, {new: true}).populate('reviews');
@@ -40,7 +48,12 @@ function removeReviewFromBabysitter(babysitterId, reviewId) {
     return Babysitter.findOneAndUpdate({_id: babysitterId}, { "$pull": { "reviews": reviewId } }, {new: true}).populate('reviews');
 }
 function getBabysitterByEmail(email) {
-    return Babysitter.findOne({email: email}).populate('reviews');
+    return Babysitter.findOne({email: email}).populate({
+        path: 'reviews',
+        populate: {
+            path: 'customer_id', model: Customer
+        }
+    })
 }
 
 export default {
@@ -54,4 +67,6 @@ export default {
     addReviewToBabysitter,
     removeReviewFromBabysitter,
     getBabysitterByEmail,
+    addMediaToBabysitter,
+    removeMediaToBabysitter,
   }

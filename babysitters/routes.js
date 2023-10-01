@@ -59,10 +59,37 @@ router.post('/', function(req, res, next) {
 });
 // update Babysitter
 router.post('/:id', function(req, res, next) {
+    // console.log(req.body);
     logger.log(`Update Babysitter ${req.params.id}`);
-    return BabysitterService.updateBabysitter(req.params.id, req.body)
-    .then(babysitter => res.send(babysitter))
-    .catch(next);
+    if(req.body.imgUrl && req.body.imgUrl != ''){ //req.body.avatar.url.split('/')[0] == 'data:image'
+        let imgObject      = {public_id:'', url:''};
+        let babysitterName = `${req.body.firstName} ${req.body.lastName} ${req.body.phone}`
+        return CloudinaryService.uploadImage(req.body.imgUrl, babysitterName)
+        .then(result => {
+            imgObject.public_id = result.public_id;
+            imgObject.url       = result.secure_url;
+            req.body.avatar     = imgObject;
+            return BabysitterService.updateBabysitter(req.params.id, req.body)
+            .then(babysitter => {
+                res.send(babysitter)
+            })
+            .catch(next); 
+        })
+    }if(req.body.imgUrlArray && req.body.imgUrlArray.length){ // bulk upload
+        return CloudinaryService.uploadMultipleImages(req.body.imgUrlArray, req.body.babysitterName)
+        .then(mediaArray => {
+            const newMedia = {media: mediaArray}
+            return BabysitterService.addMediaToBabysitter(req.params.id, mediaArray)
+            .then(babysitter => {
+                res.send(babysitter)
+            })
+            .catch(next); 
+        })
+    }else{
+        return BabysitterService.updateBabysitter(req.params.id, req.body)
+        .then(babysitter => res.send(babysitter))
+        .catch(next);
+    }
 });
 // add review to Babysitter
 router.post('/:id/addReview', function(req, res, next) {
@@ -73,8 +100,15 @@ router.post('/:id/addReview', function(req, res, next) {
 });
 // remove review from Babysitter by review ID
 router.delete('/:babysitterId/removeReview/:reviewId', function(req, res, next) {
-    logger.log(`Add review to Babysitter ${req.params.id}`);
+    logger.log(`Remove review to Babysitter ${req.params.babysitterId}`);
     return BabysitterService.removeReviewFromBabysitter(req.params.babysitterId, req.params.reviewId)
+    .then(babysitter => res.send(babysitter))
+    .catch(next);
+});
+// remove media from Babysitter by media ID
+router.delete('/:babysitterId/removeMedia/:mediaId', function(req, res, next) {
+    logger.log(`Remove media to Babysitter ${req.params.babysitterId}, ${req.params.mediaId}`);
+    return BabysitterService.removeMediaToBabysitter(req.params.babysitterId, req.params.mediaId)
     .then(babysitter => res.send(babysitter))
     .catch(next);
 });

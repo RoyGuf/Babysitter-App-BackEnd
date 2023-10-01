@@ -8,10 +8,15 @@ const babysitterSchema = new mongoose.Schema({
     email: { type: String, required: false },
     phone: { type: String, required: false },
     price: { type: String, required: false },
+    avgRate: { type: String, required: false },
     avatar: {
       public_id: { type: String, required: false },
       url: { type: String, required: false },
     },
+    media: [{
+      public_id: { type: String, required: false },
+      url: { type: String, required: false },
+    }],
     address: {
       city: { type: String, required: false },
       details: { type: String, required: false },

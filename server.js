@@ -28,7 +28,7 @@ import mongoose from './db/database.js';
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cookieParser())
 app.use(express.static(path.resolve(dirname, './dist'), {maxAge: '1y', etag: false}))
 
