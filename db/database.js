@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 import Logger from '../logger/service.js';
 import config from '../config/config.js';
 
-const mongo = config.mongo
-
+const mongo = config.mongo 
 const dbPath = `mongodb+srv://${mongo.username}:${mongo.password}@${mongo.hostname}/${mongo.db}?retryWrites=true&w=majority`;
 // mongoose.set('debug', true);
 
